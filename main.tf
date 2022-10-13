@@ -8,3 +8,14 @@ module "libvirt-network-cluster-1" {
     libvirt = libvirt.remote
   }
 }
+
+module "libvirt-storage-pool" {
+  source = "./modules/kvm-vm-storage"
+
+  name = "clusters"
+  path = "/tmp/terraform/clusters"
+
+  providers = {
+    libvirt = libvirt.remote
+  }
+}
