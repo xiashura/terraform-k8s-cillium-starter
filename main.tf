@@ -47,7 +47,7 @@ module "cluster-1-work-nodes" {
 
   count = 2
 
-  memory    = 2048
+  memory    = 1048
   vcpu      = 1
   disk_size = 20
 
@@ -60,4 +60,27 @@ module "cluster-1-work-nodes" {
   providers = {
     libvirt = libvirt.remote
   }
+}
+
+
+module "setup-cluster-1" {
+  source = "./modules/k8s-kubeadm"
+
+  name-cluster = "cluster-1"
+
+  master-node = {
+    ip   = module.cluster-1-master-node.ip
+    user = "root"
+  }
+  worker-nodes = [
+    {
+      ip   = module.cluster-1-work-nodes[0].ip
+      user = "root"
+    },
+    {
+      ip   = module.cluster-1-work-nodes[1].ip
+      user = "root"
+    }
+  ]
+
 }
