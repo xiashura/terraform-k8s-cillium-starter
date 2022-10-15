@@ -63,7 +63,4 @@ EOF
 systemctl daemon-reload
 systemctl restart kubelet
 
-sed -i -e 's/#DNS=/DNS=8.8.8.8/g' /etc/systemd/resolved.conf 
-systemctl restart systemd-resolved
-
 swapoff -a
