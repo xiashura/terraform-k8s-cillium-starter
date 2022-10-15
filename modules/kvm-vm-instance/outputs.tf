@@ -1,7 +1,7 @@
 
 
 output "ip" {
-  value = libvirt_domain.kvm_node.network_interface.*.addresses
+  value = libvirt_domain.kvm_node.network_interface.*.addresses[0][0]
 }
 
 
