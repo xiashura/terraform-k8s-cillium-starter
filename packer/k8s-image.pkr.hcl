@@ -26,7 +26,7 @@ variable "disk_size" {
 
 variable "image_checksum" {
   type    = string
-  default = "0beccc17385d6df46e386bd9e8a0fafdc70a5b687a23db9d7e9b3c92392519b9"
+  default = "0f429a529350d750c4769f73d71ceaf492b81f4cf8c9c03d9821673c5829765d"
 }
 
 variable "image_checksum_type" {
@@ -55,7 +55,7 @@ variable "ssh_private_key_file" {
 }
 
 locals {
-  vm_name = "work-node.qcow2"
+  vm_name = "k8s-image.qcow2"
 }
 
 source "qemu" "k8s-image" {
@@ -70,7 +70,6 @@ source "qemu" "k8s-image" {
   iso_url             = "${var.image_url}"
   output_directory    = "build"
   qemuargs            = [["-m", "${var.memory}"], ["-smp", "cpus=${var.cpus}"], ["-cdrom", "${var.cloud_init_image}"], ["-serial", "mon:stdio"]]
-  // ssh_password        = "${var.ssh_password}"
   ssh_port            = 22
   ssh_username        = "${var.ssh_username}"
   ssh_private_key_file = "${var.ssh_private_key_file}"
@@ -80,7 +79,7 @@ source "qemu" "k8s-image" {
 }
 
 build {
-  sources = ["source.qemu.k8s-node"]
+  sources = ["source.qemu.k8s-image"]
 
   provisioner "shell" {
     execute_command = "bash -x {{.Path}}"
