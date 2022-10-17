@@ -64,3 +64,5 @@ systemctl daemon-reload
 systemctl restart kubelet
 
 swapoff -a
+
+kubeadm config images pull
