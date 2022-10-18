@@ -20,6 +20,11 @@
 
     in with pkgs; {
       devShell = mkShell {
+        
+        shellHook = ''
+          alias tf-kvm="terraform -chdir=./stands/kvm"
+        '';
+
         buildInputs = [
           cloud-utils
           cloud-init-build-img
