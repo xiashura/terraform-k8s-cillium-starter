@@ -30,6 +30,7 @@ resource "null_resource" "init-master-node" {
 
 resource "null_resource" "join-worker-nodes" {
 
+
   depends_on = [
     null_resource.init-master-node
   ]
@@ -54,5 +55,31 @@ resource "null_resource" "join-worker-nodes" {
     ]
   }
 
+
+}
+
+resource "null_resource" "vitality_check" {
+
+  triggers = {
+    id_dependsi = var.id_dependsi
+  }
+
+  depends_on = [
+    null_resource.join-worker-nodes
+  ]
+
+
+  connection {
+    type        = "ssh"
+    user        = var.master-node.user
+    private_key = file(var.ssh-key-private-path)
+    host        = var.master-node.ip
+  }
+
+  provisioner "remote-exec" {
+    inline = [
+      "kubectl get nodes",
+    ]
+  }
 
 }

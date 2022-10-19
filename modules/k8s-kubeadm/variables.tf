@@ -22,3 +22,7 @@ variable "worker-nodes" {
     })
   )
 }
+
+variable "id_dependsi" {
+  default = ""
+}
