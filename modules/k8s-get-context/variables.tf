@@ -19,5 +19,8 @@ variable "context-path" {
 
 }
 
+variable "id_dependsi" {
+  default = ""
+}
 
 variable "id_kubeadm_dependsi" {}
