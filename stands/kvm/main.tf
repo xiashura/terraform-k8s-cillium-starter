@@ -84,3 +84,15 @@ module "setup-cluster-1" {
   ]
 
 }
+
+
+module "get-context" {
+  source              = "../../modules/k8s-get-context"
+  id_kubeadm_dependsi = module.setup-cluster-1.id_dependsi
+
+  ssh-host-master-node = module.cluster-1-master-node.ip
+  cluster-name         = "cluster-1"
+  context-path         = path.root
+}
+
+
